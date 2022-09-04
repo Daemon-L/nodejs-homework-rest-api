@@ -23,8 +23,13 @@ const userShema = new Schema({
   subscription: {
     type: String,
     enum: subscriptionKind,
-    default: "starter"
+    default: "starter",
   },
+  avatarURL: {
+    type: String,
+    required: true,
+
+},
   token: {
     type: String,
     default: "",
@@ -38,7 +43,7 @@ userShema.post("save", hendleSchemaValidationErrors);
 const singupSchema = Joi.object({
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().min(6).required(), 
-  repeat_password: Joi.ref("password"),
+  repeat_password: Joi.string().required().valid(Joi.ref('password')),
   subscription: Joi.string().valueOf(...subscriptionKind),
 })
 
