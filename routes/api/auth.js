@@ -16,6 +16,12 @@ router.get('/users/logout', authenticate, ctrlWrapper(controller.logout));
 
 router.get('/users/current', authenticate, ctrlWrapper(controller.currentUser));
 
+
+router.get('/users/verify/:verificationToken', ctrlWrapper(controller.verifyEmail));
+
+router.post('/users/verify', validationBody(schemas.verifyEmailSchema), ctrlWrapper(controller.resendVerifyEmail));
+
+
 router.patch('/users', authenticate, validationBody(schemas.updateSubscriptionSchema), ctrlWrapper(controller.updateSubscription));
 
 router.patch('/users/avatars', authenticate, upload.single("avatar"), ctrlWrapper(controller.updateAvatar));

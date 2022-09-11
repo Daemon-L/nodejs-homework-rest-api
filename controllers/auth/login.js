@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 
 const { User } = require('../../models/model_user');
 const { RequestError } = require('../../helpers/index');
-
 const { SECRET_KEY } = process.env;
 
 const login = async (req, res) => {
@@ -15,6 +14,9 @@ const login = async (req, res) => {
     const comparePassword = await bcrypt.compare(password, user.password);
     if (!comparePassword) {
         throw RequestError(401, "Password wrong");
+    }
+    if(!user.verify) {
+        throw RequestError(403, "Email not verify");
     }
     const peyload = {
         id: user._id
