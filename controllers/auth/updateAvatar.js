@@ -3,7 +3,6 @@ const path = require('path');
 const jimp = require('jimp');
 
 const { User } = require('../../models/model_user');
-
 const avatarsDir = path.join(__dirname, "../../", "public", "avatars");
 
 const updateAvatar = async (req, res) => {
